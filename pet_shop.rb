@@ -131,8 +131,10 @@ def add_pet_to_customer(customer, new_pet)
 end
 
 def customer_can_afford_pet(customer, new_pet)
-  return false if customer[:cash] < new_pet[:price]
-  return true
+  # Refactored this if clause to a ternary if
+  # return false if customer[:cash] < new_pet[:price]
+  # return true
+  customer[:cash] < new_pet[:price] ? false : true
 end
 
 
