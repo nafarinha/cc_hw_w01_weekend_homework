@@ -1,3 +1,69 @@
+@customers = [
+  {
+    name: "Alice",
+    pets: [],
+    cash: 1000
+  },
+  {
+    name: "Bob",
+    pets: [],
+    cash: 50
+  }
+]
+
+@new_pet = {
+  name: "Bors the Younger",
+  pet_type: :cat,
+  breed: "Cornish Rex",
+  price: 100
+}
+
+@pet_shop = {
+  pets: [
+    {
+      name: "Sir Percy",
+      pet_type: :cat,
+      breed: "British Shorthair",
+      price: 500
+    },
+    {
+      name: "King Bagdemagus",
+      pet_type: :cat,
+      breed: "British Shorthair",
+      price: 500
+    },
+    {
+      name: "Sir Lancelot",
+      pet_type: :dog,
+      breed: "Pomsky",
+      price: 1000,
+    },
+    {
+      name: "Arthur",
+      pet_type: :dog,
+      breed: "Husky",
+      price: 900,
+    },
+    {
+      name: "Tristan",
+      pet_type: :dog,
+      breed: "Basset Hound",
+      price: 800,
+    },
+    {
+      name: "Merlin",
+      pet_type: :cat,
+      breed: "Egyptian Mau",
+      price: 1500,
+    }
+  ],
+  admin: {
+    total_cash: 1000,
+    pets_sold: 0,
+  },
+  name: "Camelot of Pets"
+}
+
 
 def pet_shop_name(pet_shop)
   return pet_shop[:name]
@@ -67,9 +133,27 @@ end
 def customer_can_afford_pet(customer, new_pet)
   return false if customer[:cash] < new_pet[:price]
   return true
-  # if customer[:cash] >= new_pet[:price]
-  #   true
-  # else
-  #   false
-  # end
+end
+
+
+def sell_pet_to_customer(pet_shop, new_pet, customer)
+
+  if new_pet.is_a? Hash
+    for pet in pet_shop[:pets]
+      if customer_cash(customer) >= pet[:price] && pet[:name] == new_pet[:name]
+
+        customer[:pets].push(
+          find_pet_by_name(pet_shop, pet[:name])
+        )
+
+        remove_pet_by_name(pet_shop, pet[:name])
+
+        increase_pets_sold(pet_shop, 1)
+
+        remove_customer_cash(customer, pet[:price])
+
+        add_or_remove_cash(pet_shop, pet[:price])
+      end
+    end
+  end
 end
