@@ -77,9 +77,7 @@ def sell_pet_to_customer(pet_shop, new_pet, customer)
     for pet in pet_shop[:pets]
       if customer_cash(customer) >= pet[:price] && pet[:name] == new_pet[:name]
 
-        customer[:pets].push(
-          find_pet_by_name(pet_shop, pet[:name])
-        )
+        customer[:pets].push(find_pet_by_name(pet_shop, pet[:name]))
 
         remove_pet_by_name(pet_shop, pet[:name])
 
