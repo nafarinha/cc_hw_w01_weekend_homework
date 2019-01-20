@@ -16,6 +16,7 @@ end
 
 def increase_pets_sold(pet_shop, num_pets)
   pet_shop[:admin][:pets_sold] += num_pets
+
 end
 
 def stock_count(pet_shop)
@@ -75,9 +76,9 @@ def sell_pet_to_customer(pet_shop, new_pet, customer)
 
   if new_pet.is_a? Hash
     for pet in pet_shop[:pets]
-      if customer_cash(customer) >= pet[:price] && pet[:name] == new_pet[:name]
+      if customer_can_afford_pet(customer, new_pet) && pet[:name] == new_pet[:name]
 
-        customer[:pets].push(find_pet_by_name(pet_shop, pet[:name]))
+        add_pet_to_customer(customer, pet)
 
         remove_pet_by_name(pet_shop, pet[:name])
 
