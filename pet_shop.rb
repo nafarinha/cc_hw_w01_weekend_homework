@@ -33,6 +33,7 @@ end
 
 def find_pet_by_name(pet_shop, name)
   for pet in pet_shop[:pets]
+#HW REVISION #: 21/01/2019, 14:20:01 use == for comparison instead of include method. See solution
     return pet if pet[:name].include?(name)
   end
   return nil
@@ -40,7 +41,9 @@ end
 
 def remove_pet_by_name(pet_shop, name)
   for pet in pet_shop[:pets]
+#HW REVISION  #: 21/01/2019, 14:20:30 use find_pet_by_name
     pet_shop[:pets].delete(pet) if pet[:name].include?(name)
+
   end
 end
 
@@ -73,7 +76,7 @@ end
 
 
 def sell_pet_to_customer(pet_shop, new_pet, customer)
-
+# HW REVISION #: 21/01/2019, 14:20:45 check solution to replace if new_pet is hash
   if new_pet.is_a? Hash
     for pet in pet_shop[:pets]
       if customer_can_afford_pet(customer, new_pet) && pet[:name] == new_pet[:name]
